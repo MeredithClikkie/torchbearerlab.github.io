@@ -66,6 +66,52 @@ The Deliberative Data Scientist
 My strength in being deliberative will help me to not act rashly and without the action being well thought out. I know that obstacles and issues pop up regularly, and I am surprised when this is not the case. Domain knowledge, statistics and probability, and coding all require vigilance and the ability to troubleshoot. With a thorough knowledge of my industry, I will think out all the risks that my organization may face. Probability and coding are both about figuring out the chance of something occurring and computing a way to work through it. 
 Conclusion
 	The Clifton Strengths assessment is a tool that helps people focus on their strengths over their weaknesses. Reflecting on the results of this assessment is incredibly helpful to me since I am at a disadvantage in starting out in data analytics later in life. I need to be cognizant of my strengths to fight times of self-doubt that I am sure to face. The opportunity to analyze different data analytics roles alongside this self-reflection has affirmed my current aspiration to become a data scientist. In having the knowledge of the advantages and disadvantages of these strengths, I am better equipped to know how to face the challenges in my educational and professional pathway. 
+Meredith Smith
+
+‌Your Signature Theme Report
+image
+
+DON CLIFTON
+
+Father of Strengths Psychology and Inventor of CliftonStrengths
+SURVEY COMPLETION DATE: 07-03-2025
+‌Meredith Smith
+SURVEY COMPLETION DATE: 07-03-2025
+
+Many years of research conducted by The Gallup Organization suggest that the most effective people are those who understand their strengths and behaviors. These people are best able to develop strategies to meet and exceed the demands of their daily lives, their careers, and their families.
+A review of the knowledge and skills you have acquired can provide a basic sense of your abilities, but an awareness and understanding of your natural talents will provide true insight into the core reasons behind your consistent successes.
+Your Signature Themes report presents your five most dominant themes of talent, in the rank order revealed by your responses to StrengthsFinder. Of the 34 themes measured, these are your "top five."
+Your Signature Themes are very important in maximizing the talents that lead to your successes. By focusing on your Signature Themes, separately and in combination, you can identify your talents, build them into strengths, and enjoy personal and career success through consistent, near-perfect performance.
+
+image
+‌Relator®
+Relator describes your attitude toward your relationships. In simple terms, the Relator theme pulls you toward people you already know. You do not necessarily shy away from meeting new people—in fact, you may have other themes that cause you to enjoy the thrill of turning strangers into friends—but you do derive a great deal of pleasure and strength from being around your close friends. You are comfortable with intimacy. Once the initial connection has been made, you deliberately encourage a deepening of the relationship. You want to understand their feelings, their goals, their fears, and their dreams; and you want them to understand yours. You know that this kind of closeness implies a certain amount of risk—you might be taken advantage of—but you are willing to accept that risk. For you a relationship has value only if it is genuine. And the only way to know that is to entrust yourself to the other person. The more you share with each other, the more you risk together. The more you risk together, the more each of you proves your caring is genuine. These are your steps toward real friendship, and you take them willingly.
+
+image
+‌Belief®
+If you possess a strong Belief theme, you have certain core values that are enduring. These values vary from one person to another, but ordinarily your Belief theme causes you to be family-oriented, altruistic,
+even spiritual, and to value responsibility and high ethics—both in yourself and others. These core values affect your behavior in many ways. They give your life meaning and satisfaction; in your view, success is more than money and prestige. They provide you with direction, guiding you through the temptations and distractions of life toward a consistent set of priorities. This consistency is the foundation for all your relationships. Your friends call you dependable. “I know where you stand,” they say. Your Belief makes you easy to trust. It also demands that you find work that meshes with your values. Your work must be meaningful; it must matter to you. And guided by your Belief theme it will matter only if it gives you a chance to live out your values.
+
+image
+‌Intellection®
+You like to think. You like mental activity. You like exercising the “muscles” of your brain, stretching them in multiple directions. This need for mental activity may be focused; for example, you may be trying to solve a problem or develop an idea or understand another person’s feelings. The exact focus will depend on your other strengths. On the other hand, this mental activity may very well lack focus. The theme of Intellection does not dictate what you are thinking about; it simply describes that you like to think. You are the kind of person who enjoys your time alone because it is your time for musing and reflection. You are introspective. In a sense you are your own best companion, as you pose yourself questions and try out answers on yourself to see how they sound. This introspection may lead you to a slight sense of discontent as you compare what you are actually doing with all the thoughts and ideas that your mind conceives. Or this introspection may tend toward more pragmatic matters such as the events of the day or a conversation that you plan to have later. Wherever it leads you, this mental hum is one of the constants of your life.
+
+image
+‌Learner®
+You love to learn. The subject matter that interests you most will be determined by your other themes and experiences, but whatever the subject, you will always be drawn to the process of learning. The process, more than the content or the result, is especially exciting for you. You are energized by the steady and deliberate journey from ignorance to competence. The thrill of the first few facts, the early efforts to recite or practice what you have learned, the growing confidence of a skill mastered—this is the process that entices you. Your excitement leads you to engage in adult learning experiences—yoga or piano lessons or graduate classes. It enables you to thrive in dynamic work environments where you are asked to take on short project assignments and are expected to learn a lot about the new subject matter in a short period of time and then move on to the next one. This Learner theme does not necessarily mean that you seek to become the subject matter expert, or that you are striving for the respect that accompanies a professional or academic credential. The outcome of the learning is less significant than the “getting there.”
+
+image
+‌Deliberative®
+You are careful. You are vigilant. You are a private person. You know that the world is an unpredictable place. Everything may seem in order, but beneath the surface you sense the many risks. Rather than denying these risks, you draw each one out into the open. Then each risk can be identified, assessed, and ultimately reduced. Thus, you are a fairly serious person who approaches life with a certain reserve. For example, you like to plan ahead so as to anticipate what might go wrong. You select your friends cautiously and keep your own counsel when the conversation turns to personal matters. You are careful not to give too much praise and recognition, lest it be misconstrued. If some people don’t like you because you are not as effusive as others, then so be it. For you, life is not a popularity contest. Life is something of a minefield. Others can run through it recklessly if they so choose, but you take a different approach. You identify the dangers, weigh their relative impact, and then place your feet deliberately. You walk with care.
+
+COPYRIGHT STANDARDS
+This document contains proprietary research, copyrighted and trademarked materials of Gallup, Inc. Accordingly, international and domestic laws and penalties guaranteeing patent, copyright, trademark and trade secret protection safeguard the ideas, concepts and recommendations related within this document.
+
+The materials contained in this document and/or the document itself may be downloaded and/or copied provided that all copies retain the copyright, trademark and any other proprietary notices contained on the materials and/or document. No changes may be made to this document without the express written permission of Gallup, Inc.
+
+Any reference whatsoever to this document, in whole or in part, on any webpage must provide a link back to the original document in its entirety. Except as expressly provided herein, the transmission of this material shall not be construed to grant a license of any type under any patents, copyright or trademarks owned or controlled by Gallup, Inc.
+
+Gallup®, CliftonStrengths®, Clifton StrengthsFinder®, StrengthsFinder® and each of the 34 strengths theme names are trademarks of Gallup, Inc. All rights reserved. All other trademarks and copyrights are the property of their respective owners.
 
 References
 Bothma, Joleen. (2023, December 6). How to Become a Business Intelligence Analyst in 2025: 5 Steps for Success. https://www.datacamp.com/blog/how-to-become-a-business-intelligence-analyst
