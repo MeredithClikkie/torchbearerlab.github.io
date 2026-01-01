@@ -15,3 +15,7 @@ show_downloads: true
 
 # To hide the buttons (If you want a cleaner look)
 show_downloads: false
+
+plugins:
+  - jekyll-gist
+  - jekyll-remote-theme
