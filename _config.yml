@@ -2,9 +2,6 @@ remote_theme: pages-themes/minimal@v0.2.0
 title: Torchbearer Lab
 description: Welcome to my project portfolio.
 
-plugins:
-  - jekyll-remote-theme
-
 excerpt_separator: ""  
 
 title: Torchbearer Lab
@@ -14,5 +11,4 @@ remote_theme: pages-themes/minimal@v0.2.0
 # Social Links
 github_username: MeredithClikkie
 linkedin_username: meredith-s-63242256
-
 wordpress_username: mdawg1981-tjlhe.wordpress.com
