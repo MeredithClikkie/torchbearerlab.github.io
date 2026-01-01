@@ -7,6 +7,7 @@ PartI: Univariate and Bivariate Statistical Analysis and Visualization
 A. 1. The Univariate Variables and Visualizations of ‘Age’, ‘Charges’, ‘BMI_Category’, & ‘SmokerQuantitative Variable 1 — Univariate Analysis of ‘Charges’
 
 Press enter or click to view image in full size
+<img src="https://meredithclikkie.github.io/torchbearer/assets/images/D599t2viz1.jpg" alt="Figure 1" width="500">
 ![Figure 1.](/torchbearerlab/assets/images/D599t2viz1.jpg) Charges: Histogram with KDE curve, Boxplot, & Q-Q Plot — Interpretation: Charges have a right-skewed distribution (positive skew), heavy‑tailed, meaning the mean is pulled higher than the median.
 
 Quantitative Variable — Univariate Analysis: ‘Age’
