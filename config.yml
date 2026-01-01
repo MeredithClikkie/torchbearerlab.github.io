@@ -1,6 +1,19 @@
----
-theme: minima
+# Site Settings
 title: Torchbearer Lab
-baseurl: "/torchbearerlab.github.io"
+description: Welcome to my research and project space.
+baseurl: "" # Leave empty for project sites or set to "/repository-name"
 url: "https://meredithclikkie.github.io"
----
+
+# Theme Settings
+# Using the default "Minima" theme which supports blog posts out of the box
+theme: jekyll-theme-minimal
+
+# Post Settings
+future: true      # This ensures posts show up even if the time zones are slightly off
+show_excerpts: true # Shows a preview of the post on the home page
+
+# Build Settings
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
