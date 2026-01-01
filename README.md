@@ -1,2 +1,6 @@
 # torchbearerlab.github.io
-Projects
+Projects and Blog posts
+
+---
+layout: home
+---
