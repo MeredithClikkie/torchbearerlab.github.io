@@ -4,3 +4,5 @@ description: Welcome to my project portfolio.
 
 plugins:
   - jekyll-remote-theme
+
+excerpt_separator: ""  
