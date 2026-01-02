@@ -12,14 +12,14 @@ A. 1. The Univariate Variables and Visualizations of ‘Age’, ‘Charges’, �
 Quantitative Variable — Univariate Analysis: ‘Age’
 
 
-![Figure 2.](/torchbearerlab/assets/images/D599t2viz2.png?raw=true) Figure 2. Age: Histogram with KDE curve, Boxplot, and Q-Q Plot — Interpretation: Age is almost perfectly symmetric (skew ≈ 0) but strongly platykurtic (kurtosis ≈ –1.24), meaning it has a flat, light‑tailed distribution rather than a normal bell curve.
+![Figure 2.](/torchbearerlab/blob/main/assets/images/D599t2viz2.png?raw=true) Figure 2. Age: Histogram with KDE curve, Boxplot, and Q-Q Plot — Interpretation: Age is almost perfectly symmetric (skew ≈ 0) but strongly platykurtic (kurtosis ≈ –1.24), meaning it has a flat, light‑tailed distribution rather than a normal bell curve.
 
 Qualitative Variables Chosen: ‘BMI_Category (from BMI) and ‘Smoker’
 
 Qualitative Variable 1 — Univariate Analysis: ‘BMI_Category’
 
 
-![Figure 3.](/torchbearerlab/assets/images/D599t2viz3.png?raw=true) Figure 3. BMI_Category: Countplot, Pie Chart, and Summary- Interpretation: Most density around Class1_Obese, and secondarily Overweight
+![Figure 3.](/torchbearerlab/blob/main/assets/images/D599t2viz3.png?raw=true) Figure 3. BMI_Category: Countplot, Pie Chart, and Summary- Interpretation: Most density around Class1_Obese, and secondarily Overweight
 
 Qualitative Variable 2 — Univariate Analysis: ‘Smoker’
 
@@ -33,38 +33,38 @@ Variable Mapping Table:
 
 Selected VariableBivariate Pair 1Bivariate Pair 2Bivariate Pair 3ChargesAge vs ChargesCharges vs. SmokerBMI_Cat vs ChargesAgeAge vs ChargesAge vs BMI_CategoryBMI_CategoryBMI_CatBMI_Cat vs ChargesSmokerCharges vs SmokerAge vs SmokerBMI_Category vs Smoker
 
-![Figure 5.](/torchbearerlab/assets/images/D599t2viz4.png?raw=true)
+![Figure 5.](/torchbearerlab/blob/main/assets/images/D599t2viz4.png?raw=true)
 Figure 5. Mapping Table for Bivariate Variables — To ensure two visualizations per each variable chosen in A1
 
 Bivariate Visualization: ‘Age’ vs ‘Charges’
 
 
 
-![Figure 6.](/torchbearerlab/assets/images/D599t2viz5.png?raw=true)
+![Figure 6.](/torchbearerlab/blob/main/assets/images/D599t2viz5.png?raw=true)
 Figure 6. Age vs. Medical Charges: 2D KDE and Scatter — Analysis: Three Distinct Risk Tiers: The 2D KDE plot clearly shows three horizontal density tunnels. This indicates that while age is a factor, the population is divided into three distinct risk groups based on other variables (likely smoking and BMI): Youth Concentration: The brightest density area at the bottom left indicates that the majority of the dataset consists of younger individuals (18–30) in the lowest-cost tier.
 
 Bivariate Visualization: ‘Smoker’ Status vs ‘Charges’
 
 
-![Figure 7.](/torchbearerlab/assets/images/D599t2viz6.png?raw=true)
+![Figure 7.](/torchbearerlab/blob/main/assets/images/D599t2viz6.png?raw=true)
 Figure 7. Smoker Status vs. Charges: Violin and KDE — Analysis: The Violin Plot shows that non-smokers are tightly clustered at the bottom of the scale, while smokers have a much higher and broader distribution of charges; Bimodal Smoking Costs: The KDE Plot for smokers (blue) shows two distinct peaks. This suggests smokers are split into two groups: “healthier” smokers and a high-risk group (likely those with high BMI) whose charges frequently exceed $40,000.
 
 Bivariate Visualization: ‘Age’ vs ‘Smoker’ Status
 
 
-![Figure 8.](/torchbearerlab/assets/images/D599t2viz7.png?raw=true)
+![Figure 8.](/torchbearerlab/blob/main/assets/images/D599t2viz7.png?raw=true)
 Figure 8. Age vs. Smoker Status: Violin and KDE — Analysis: Identical Distributions — The Split Violin Plot and KDE Plot show how the age distributions for both smokers and non-smokers are almost identical; No Age Bias: Both groups show a wide range of ages (roughly 18 to 70) with similar peaks around age 20. This is an important finding because it confirms that smoking status is independent of age in this dataset — meaning you don’t have a “young smoker” or “old non-smoker” bias.
 
 Bivariate Visualization: ‘BMI_Category’ vs Charges
 
 
-![Figure 9.](/torchbearerlab/assets/images/D599t2viz8.png?raw=true)
+![Figure 9.](/torchbearerlab/blob/main/assets/images/D599t2viz8.png?raw=true)
 Figure 9. The Impact of BMI on Medical Costs: Bar and box plots — Analysis: A non-linear relationship between weight and cost: Average Charges Increase with BMI: There is a visible step-up in average charges as you move from “Under” to ‘C1_Obese’ and ‘C2_Obese’ categories.The “Obese” Outlier Effect: While the median charges for the “Obese” categories are higher, the boxplot reveals a massive amount of high-cost outliers (reaching $40–$60k). This suggests that high BMI itself isn’t the only driver.
 
 Bivariate Visualization: ‘BMI_Category’ vs ‘Smoker’ Status
 
 
-![Figure 10.](/torchbearerlab/assets/images/D599t2viz9.png?raw=true)
+![Figure 10.](/torchbearerlab/blob/main/assets/images/D599t2viz9.png?raw=true)
 Figure 10. Obesity and Smoking Intersection: Count Plot and Heatmap — Show that while there are fewer smokers than non-smokers overall, there is a significant population of Obese Smokers. This intersection is where the highest charges in the dataset occur.
 
 B. Complete the following using the attached “Health Insurance Dataset” and R or Python:
@@ -116,13 +116,13 @@ To protect the integrity of the findings, I employed the HC3 estimator for robus
 
 
 
-![Figure 13.](/torchbearerlab/assets/images/D599t2viz10.png?raw=true)
+![Figure 13.](/torchbearerlab/blob/main/assets/images/D599t2viz10.png?raw=true)
 Figure 13: Screenshot of OLS with SE calculation code exported to HTML .
 
 OLS with Robust SE Output and Results
 
 
-![Figure 14.](/torchbearerlab/assets/images/D599t2viz11.png?raw=true)
+![Figure 14.](/torchbearerlab/blob/main/assets/images/D599t2viz11.png?raw=true)
 Figure 14. OLS Regression Results from PyCharm
 
 E. OLS with Robust SE Test Results The p-value of the regression model (1.48e-292), is essentially zero. This confirms that the model is statistically significant overall. With R-squared explaining approximately 75% of the variation in medical charges, this indicates strong predictive performance for real-world health‑cost data. Smoking status is the dominant cost driver, with smokers incurring an estimated $23,800 more in charges than non‑smokers, controlling for BMI and age. BMI and age also contribute meaningfully, with each additional BMI point associated with $323 higher charges and each additional year of age associated with $260 higher charges.
