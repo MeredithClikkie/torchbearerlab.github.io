@@ -21,7 +21,7 @@ Qualitative Variables Chosen: ‘BMI_Category (from BMI) and ‘Smoker’
 Qualitative Variable 1 — Univariate Analysis: ‘BMI_Category’
 
 
-![Figure 3.](/torchbearerlab/blob/main/assets/images/D599t2viz3.png?raw=true) Figure 3. BMI_Category: Countplot, Pie Chart, and Summary- Interpretation: Most density around Class1_Obese, and secondarily Overweight
+![Figure 3.](/meredithclikkie/torchbearerlab/assets/images/D599t2viz3.png) Figure 3. BMI_Category: Countplot, Pie Chart, and Summary- Interpretation: Most density around Class1_Obese, and secondarily Overweight
 
 Qualitative Variable 2 — Univariate Analysis: ‘Smoker’
 
