@@ -11,9 +11,9 @@ A. 1. The Univariate Variables and Visualizations of ‘Age’, ‘Charges’, �
 
 Quantitative Variable — Univariate Analysis: ‘Age’
 
-![Figure 2]({{"/assets/images/D599t2viz2.png" | relative_url }})
+![Figure 2]({{"/blob/main/assets/images/D599t2viz2.png" | relative_url }})
 
-<img src="https://meredithclikkie.github.io/torchbearerlab/assets/images/D599t2viz2.png" alt="Figure 2">
+<img src="https://meredithclikkie.github.io/torchbearerlab/blob/main/assets/images/D599t2viz2.png" alt="Figure 2">
 
 ![Figure 2.](/MeredithClikkie/torchbearerlab/blob/main/assets/images/D599t2viz2.png?raw=true) Figure 2. Age: Histogram with KDE curve, Boxplot, and Q-Q Plot — Interpretation: Age is almost perfectly symmetric (skew ≈ 0) but strongly platykurtic (kurtosis ≈ –1.24), meaning it has a flat, light‑tailed distribution rather than a normal bell curve.
 
@@ -21,8 +21,8 @@ Qualitative Variables Chosen: ‘BMI_Category (from BMI) and ‘Smoker’
 
 Qualitative Variable 1 — Univariate Analysis: ‘BMI_Category’
 
-![Figure 3]({{"/assets/images/D599t2viz3.png" | relative_url }})
-![Figure 3.](/meredithclikkie/torchbearerlab/assets/images/D599t2viz3.png) Figure 3. BMI_Category: Countplot, Pie Chart, and Summary- Interpretation: Most density around Class1_Obese, and secondarily Overweight
+![Figure 3]({{"/blob/main/assets/images/D599t2viz3.png" | relative_url }})
+![Figure 3.](/meredithclikkie/torchbearerlab/blob/main/assets/images/D599t2viz3.png) Figure 3. BMI_Category: Countplot, Pie Chart, and Summary- Interpretation: Most density around Class1_Obese, and secondarily Overweight
 
 Qualitative Variable 2 — Univariate Analysis: ‘Smoker’
 
