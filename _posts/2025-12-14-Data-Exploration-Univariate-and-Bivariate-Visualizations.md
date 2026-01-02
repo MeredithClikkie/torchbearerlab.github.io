@@ -35,20 +35,20 @@ Variable Mapping Table:
 
 Selected VariableBivariate Pair 1Bivariate Pair 2Bivariate Pair 3ChargesAge vs ChargesCharges vs. SmokerBMI_Cat vs ChargesAgeAge vs ChargesAge vs BMI_CategoryBMI_CategoryBMI_CatBMI_Cat vs ChargesSmokerCharges vs SmokerAge vs SmokerBMI_Category vs Smoker
 
-![Figure 5.](/torchbearerlab/blob/main/assets/images/D599t2viz4.png?raw=true)
+![Figure 5.](/meredithclikkie/torchbearerlab/blob/main/assets/images/D599t2viz4.png)
 Figure 5. Mapping Table for Bivariate Variables — To ensure two visualizations per each variable chosen in A1
 
 Bivariate Visualization: ‘Age’ vs ‘Charges’
 
 
 
-![Figure 6.](/torchbearerlab/blob/main/assets/images/D599t2viz5.png?raw=true)
+![Figure 6.](/meredithclikkie/torchbearerlab/blob/main/assets/images/D599t2viz5.png?raw=true)
 Figure 6. Age vs. Medical Charges: 2D KDE and Scatter — Analysis: Three Distinct Risk Tiers: The 2D KDE plot clearly shows three horizontal density tunnels. This indicates that while age is a factor, the population is divided into three distinct risk groups based on other variables (likely smoking and BMI): Youth Concentration: The brightest density area at the bottom left indicates that the majority of the dataset consists of younger individuals (18–30) in the lowest-cost tier.
 
 Bivariate Visualization: ‘Smoker’ Status vs ‘Charges’
 
 
-![Figure 7.](/torchbearerlab/blob/main/assets/images/D599t2viz6.png?raw=true)
+![Figure 7.](/torchbearerlab/assets/images/D599t2viz6.png)
 Figure 7. Smoker Status vs. Charges: Violin and KDE — Analysis: The Violin Plot shows that non-smokers are tightly clustered at the bottom of the scale, while smokers have a much higher and broader distribution of charges; Bimodal Smoking Costs: The KDE Plot for smokers (blue) shows two distinct peaks. This suggests smokers are split into two groups: “healthier” smokers and a high-risk group (likely those with high BMI) whose charges frequently exceed $40,000.
 
 Bivariate Visualization: ‘Age’ vs ‘Smoker’ Status
