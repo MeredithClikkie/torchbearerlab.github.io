@@ -1,0 +1,21 @@
+title: Breach Lab
+# This "permalink" line forces a simple structure
+permalink: /:title/
+baseurl: "/breachlab"
+url: "https://meredithclikkie.github.io"
+remote_theme: pages-themes/minimal@v0.2.0
+
+# This ensures the build isn't skipping your posts
+collections:
+  posts:
+    output: true
+
+# To show the buttons (Current state)
+show_downloads: true
+
+# To hide the buttons (If you want a cleaner look)
+show_downloads: false
+
+plugins:
+  - jekyll-gist
+  - jekyll-remote-theme
