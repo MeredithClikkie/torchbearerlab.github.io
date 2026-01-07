@@ -7,12 +7,6 @@ df= pd.read_excel(file_path)
 ```
 
 
-```python
-df.head()
-```
-
-
-
 
 <div>
 <style scoped>
