@@ -9,7 +9,6 @@ df= pd.read_excel(file_path)
 
 
 <div>
-<style scoped>
     .dataframe tbody tr th:only-of-type {
         vertical-align: middle;
     }
@@ -21,8 +20,7 @@ df= pd.read_excel(file_path)
     .dataframe thead th {
         text-align: right;
     }
-</style>
-<table border="1" class="dataframe">
+<table  class="dataframe">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -251,9 +249,7 @@ df1 = df.drop(columns=['Unnamed: 4', 'Suffix', 'Lineup', 'Signed Under', 'Unname
 ```
 
 
-```python
-df1.dtypes
-```
+
 
 
 
