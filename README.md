@@ -4,3 +4,16 @@ Projects and Blog posts
 ---
 layout: home
 ---
+
+A great data report always starts with an executive summary. This translates the cold numbers—like "0.15 Rhyme Density"—into a story about artistic growth.
+
+You can paste this "Summary of Findings" at the very beginning of your PDF or include it as a text block on the first page.
+
+### Summary of Findings: The Lyrical Evolution of Twenty One Pilots
+
+This analysis of **92 songs** across **10 albums** reveals a band in a state of constant technical and thematic transition. Early eras, specifically the *Self-Titled* and *Vessel* periods, are characterized by high **Lexical Diversity** and overt **Faith & Resilience** themes, suggesting a raw, introspective focus on identity and spiritual struggle. As the discography progresses into the *Trench* and *Clancy* eras, we observe a significant spike in **Rhyme Density**, indicating a shift toward more complex, technical rapping and world-building "Lore."
+
+While later albums like *Scaled And Icy* show a higher **Repetition Score** (suggesting a move toward more structured, formulaic pop compositions), the **Sentiment Analysis** reveals a "U-shaped" emotional journey: starting with heavy introspection, moving into dark narrative conflict, and eventually rebounding toward a resilient, albeit complex, optimism. Ultimately, the data suggests that while the band's structural complexity varies by era, their technical proficiency and thematic depth have consistently deepened over the last 15 years.
+
+---
+
