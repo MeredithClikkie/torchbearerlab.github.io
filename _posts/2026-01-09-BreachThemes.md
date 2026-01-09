@@ -1036,6 +1036,10 @@ plt.ylabel('Number of Songs', fontsize=12)
 plt.xticks(rotation=45, ha='right')
 plt.tight_layout()
 plt.show()
+
+![breach_themes_bar](/breach_lab/assets/breach_themes_bar.png)
+
+
 # %%
 import matplotlib.pyplot as plt
 
@@ -1085,6 +1089,10 @@ plt.tight_layout()
 
 # Save or display
 plt.savefig('breach.png')
+
+![breach_png]/(breach_lab/assets/breach.png)
+
+
 # %% [markdown]
 # ### Breach Lollipop
 # %%
@@ -1116,6 +1124,10 @@ plt.tight_layout()
 # 4. Save or display
 plt.savefig('breach_lollipop.png')
 plt.show()
+
+![breach_lollipop]/breach_lab/assets/breach_lollipop.png
+
+
 # %% [markdown]
 # ### Breach Bubble Chart
 # %%
@@ -1164,6 +1176,8 @@ plt.colorbar(scatter, label='Frequency') # Optional: adds a color scale legend
 plt.tight_layout()
 plt.savefig('breach_bubble.png')
 plt.show()
+
+![breach_themes_bar](/breach_lab/assets/breach_bubble.png)
 # %% [markdown]
 # ### Breach Tree Map
 # %%
@@ -1195,6 +1209,9 @@ plt.axis('off') # Treemaps don't need axes
 plt.tight_layout()
 plt.savefig('breach_treemap.png')
 plt.show()
+
+![breach_treemap](/breach_lab/assets/breach_treemap.png)
+
 # %% [markdown]
 # ### Breach Word Cloud
 # %%
@@ -1212,6 +1229,9 @@ plt.imshow(wordcloud, interpolation='bilinear')
 plt.axis('off')
 wordcloud.to_file("breach_wordcloud.png")
 plt.show()
+
+![breach_wordcloud](/breach_lab/assets/breach_wordcloud.png)
+
 # %% [markdown]
 # ### Breach Radial Bar Chart
 # %%
@@ -1238,6 +1258,10 @@ plt.title("Breach Radial", va='bottom')
 # dpi=300 ensures a high-resolution, professional-looking image
 plt.savefig("breach_radial.png", format="png", dpi=300, bbox_inches='tight')
 plt.show()
+
+![breach_radial](/breach_lab/assets/breach_radial.png)
+
+
 # %% [markdown]
 # ### Breach Funnel Chart
 # %%
@@ -1257,6 +1281,10 @@ fig = px.funnel(df_counts,
 fig.write_image("breach_funnel.png", scale=2) # scale=2 increases resolution
 
 fig.show()
+
+![breach_funnel](/breach_lab/assets/breach_funnel.png)<
+
+
 # %% [markdown]
 # ### Breach Words by Length
 # %%
@@ -1363,6 +1391,9 @@ ax.set_xticklabels([f"{l} letters" for l in lengths])
 ax.set_yticklabels([]) # Hide the radial grids for a cleaner look
 plt.title("Lyric Density Spiral", va='bottom', fontsize=15)
 plt.show()
+
+![breach_spiral](/breach_lab/assets/breach_density.png)
+
 # %% [markdown]
 # ### Breach Statistical Distribution of Word Lengths
 # %%
@@ -1376,6 +1407,9 @@ sns.boxplot(x=lengths_data, color="#D72638")
 plt.title('Statistical Distribution of Breach Lyric Word Lengths')
 plt.xlabel('Number of Letters')
 plt.show()
+
+![breach_themes_bar](/breach_lab/assets/breach_themes_bar.png)
+
 # %% [markdown]
 # ### Breach Word Cloud Color-Coded by Length
 # %%
@@ -1425,3 +1459,5 @@ for bar in bars:
     plt.text(bar.get_x() + bar.get_width() / 2, yval + 5, yval, ha='center', va='bottom')
 
 plt.savefig('word_length_distribution.png')
+
+![breach_wc2]/breach_lab/assets/breach_length_distribution.png
