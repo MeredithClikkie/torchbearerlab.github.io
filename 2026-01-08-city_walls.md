@@ -156,6 +156,11 @@ plt.tight_layout()
 
 # Save or display
 plt.savefig('citywalls_lyric_counts_bar.png')
+![city_walls_bar](assets/citywalls_lyric_counts_bar.png)
+
+
+
+![city_walls_count]({{ "/assets/citywalls_lyric_counts_bar.png" | relative_url }})
 # %% [markdown]
 # ### City Walls Lollipop Chart
 # %%
