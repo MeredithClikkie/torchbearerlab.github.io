@@ -110,7 +110,7 @@ I wanted you to show me
  This is the last time that I try"""
 
 ```
-![cw_bar](assets/citywalls_lyric_counts_bar.png)
+![cw_bar](/breach_lab/assets/citywalls_lyric_counts_bar.png)
 
 ```python
 # 1. Normalize: lowercase and remove punctuation
