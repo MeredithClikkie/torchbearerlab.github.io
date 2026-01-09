@@ -659,6 +659,11 @@ for j in range(i + 1, len(axes)):
 
 plt.tight_layout()
 plt.show()
+
+![each_album_wc](/breach_lab/assets/each_album_wordcloud.png)
+<img width="944" height="38" alt="image" src="https://github.com/user-attachments/assets/5c464ac2-9fce-4748-a4d9-e914a4f952fc" />
+
+
 # %%
 import networkx as nx
 import matplotlib.pyplot as plt
