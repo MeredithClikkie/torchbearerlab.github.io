@@ -110,7 +110,7 @@ I wanted you to show me
  This is the last time that I try"""
 
 ```
-![cw_bar](/breach_lab/assets/citywalls_lyric_counts_bar.png)
+
 
 ```python
 # 1. Normalize: lowercase and remove punctuation
@@ -152,11 +152,7 @@ plt.tight_layout()
 plt.savefig('lyric_counts_bar.png')
 ```
 
-![city_walls_bar]({{ "/breach_lab/assets/citywalls_lyrics_bar.png" | relative_url }})
-
-
-    
-![png](City_walls_files/City_walls_6_0.png)
+![cw_bar](/breach_lab/assets/citywalls_lyric_counts_bar.png)
     
 
 
@@ -196,7 +192,7 @@ plt.show()
 
 
     
-![png](City_walls_files/City_walls_8_0.png)
+![cw_lollipop](/breach_lab/assets/citywalls_lollipop.png)
     
 
 
@@ -253,7 +249,7 @@ plt.show()
 
 
     
-![png](City_walls_files/City_walls_10_0.png)
+![cw_bubble](/breach_lab/assets/city_walls_bubble.png)
     
 
 
@@ -293,7 +289,7 @@ plt.show()
 
 
     
-![png](City_walls_files/City_walls_12_0.png)
+![cw_bar](/breach_lab/assets/citywalls_treemap.png)
     
 
 
@@ -319,7 +315,7 @@ plt.show()
 
 
     
-![png](City_walls_files/City_walls_14_0.png)
+
     
 
 
