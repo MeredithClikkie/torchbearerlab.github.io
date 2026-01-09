@@ -110,7 +110,7 @@ I wanted you to show me
  This is the last time that I try"""
 
 ```
-
+![cw_bar](assets/citywalls_lyric_counts_bar.png)
 
 ```python
 # 1. Normalize: lowercase and remove punctuation
@@ -152,7 +152,7 @@ plt.tight_layout()
 plt.savefig('lyric_counts_bar.png')
 ```
 
-![city_walls_bar]({{ "/breach_lab/assets/city_walls_lyrics_count.png" | relative_url }})
+![city_walls_bar]({{ "/breach_lab/assets/citywalls_lyrics_bar.png" | relative_url }})
 
 
     
