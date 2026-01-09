@@ -152,6 +152,8 @@ plt.tight_layout()
 plt.savefig('lyric_counts_bar.png')
 ```
 
+![city_walls_bar]({{ "/breach_lab/assets/city_walls_lyrics_count.png" | relative_url }})
+
 
     
 ![png](City_walls_files/City_walls_6_0.png)
