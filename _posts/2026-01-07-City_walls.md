@@ -315,7 +315,7 @@ plt.show()
 
 
     
-
+![cw_wordcloud](/breach_lab/assets/cw_wordcloud.png)
     
 
 
@@ -347,7 +347,7 @@ plt.show()
 
 
     
-![png](City_walls_files/City_walls_16_0.png)
+![cw_radial](/breach_lab/assets/radial_charts.png)
     
 
 
@@ -363,4 +363,4 @@ fig = px.funnel(df_counts, x='Count', y='Word',
 fig.show()
 ```
 
-
+![cw_funnel](/breach_lab/assets/funnel_chart.png)
