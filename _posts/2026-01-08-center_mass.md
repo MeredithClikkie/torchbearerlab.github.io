@@ -10,7 +10,7 @@ import squarify # pip install squarify
 import seaborn as sns
 from wordcloud import WordCloud
 import plotly.express as px # Requires: pip install plotly
-![Center Mass Bar Chart](center_mass_bar.png)
+![Center Mass Bar Chart](assets/center_mass_bar.png)
 # %%
 file_path = '/Users/meredithsmith/Desktop/TØPAnalysis/BreachSongs2.xlsx'
 df = pd.read_excel(file_path)
