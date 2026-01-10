@@ -11,10 +11,6 @@ def load_data():
     """Loads data from Excel or creates a new DataFrame if the file doesn't exist."""
     if os.path.exists(file_path):
         return pd.read_excel(file_path)
-    else:
-        # Create empty DataFrame with required columns
-        return pd.DataFrame(columns=['Date', 'Metric', 'Value', 'Notes'])
-
 
 def save_data(file_path):
     """Saves the DataFrame back to the Excel file."""
@@ -57,32 +53,32 @@ if not df.empty:
     st.subheader("📈 Health Trends Over Time")
 
     # Filter by metric for the chart
-    available_metrics = df['Metric'].unique()
+    available_metrics = df['Results'].unique()
     selected_metric = st.selectbox("Select metric to visualize:", available_metrics)
 
     # Filter and sort data for plotting
-    plot_df = df[df['Metric'] == selected_metric].copy()
+    plot_df = df[df['Results'] == selected_metric].copy()
     plot_df['Date'] = pd.to_datetime(plot_df['Date'])
     plot_df = plot_df.sort_values('Date')
 
     if not plot_df.empty:
-        latest_val = plot_df.iloc[-1]['Value']
+        latest_val = plot_df.iloc[-1]['Results']
         # Lore-based indicator logic (Example threshold for Vitamin D)
         status = "🟡 BANDITO (Optimal)" if latest_val >= 30 else "🔴 VIALISM (Sub-optimal)"
 
         st.metric(label=f"Latest {selected_metric}", value=latest_val, delta=status)
-        st.line_chart(plot_df.set_index('Date')['Value'])
+        st.line_chart(plot_df.set_index('Date')['Results'])
 
     # 3. FULL LOG TABLE
     st.subheader("📜 The Complete Chronicles")
     st.dataframe(df, use_container_width=True)
 
     # Download button for the Excel file
-    with open(EXCEL_FILE, "rb") as file:
+    with open(file_path, "rb") as file:
         st.download_button(
             label="📂 Download Survival Log (Excel)",
             data=file,
-            file_name=EXCEL_FILE,
+            file_name=file_path,
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
 else:
