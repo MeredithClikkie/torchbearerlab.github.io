@@ -3,65 +3,95 @@ import pandas as pd
 import datetime
 import os
 
-# --- SETTINGS ---
+# --- FILE SETTINGS ---
 MAIN_FILE = '/Users/meredithsmith/Desktop/TØPAnalysis/trench_health.xlsx'
-LEGACY_FILE = '/Users/meredithsmith/Desktop/TØPAnalysis/Trench_Weight_History2.xlsx'
-USER_HEIGHT_IN = 63  # Enter your height once to calculate BMI from weight
+HISTORY_FILE = '/Users/meredithsmith/Desktop/TØPAnalysis/Trench_Weight_History2.xlsx'
 
+def load_unified_data():
+    """Merges historical data with active logs without calculating BMI."""
+    # 1. Load Current Main Data
+    if os.path.exists(MAIN_FILE):
+        main_df = pd.read_excel(MAIN_FILE)
+    else:
+        main_df = pd.DataFrame(columns=['Date', 'Weight', 'BMI', 'Metric', 'Value', 'Notes'])
 
-def calculate_bmi(weight_lb):
-    """Imperial BMI formula."""
-    return (weight_lb * 703) / (USER_HEIGHT_IN ** 2)
+    # 2. Load History 2011 Data
+    if os.path.exists(HISTORY_FILE):
+        hist_df = pd.read_excel(HISTORY_FILE)
+        # Optional: Rename columns if they differ in your history file
+        # hist_df = hist_df.rename(columns={'YourOldName': 'Weight', 'OldBMI': 'BMI'})
+    else:
+        hist_df = pd.DataFrame()
 
+    # 3. Combine into Master Chronicles
+    combined = pd.concat([main_df, hist_df], ignore_index=True)
 
-def load_all_data():
-    # 1. Load Main App Data
-    main_df = pd.read_excel(MAIN_FILE) if os.path.exists(MAIN_FILE) else pd.DataFrame()
+    if not combined.empty:
+        # Convert Dates and Sort for the timeline charts
+        combined['Date'] = pd.to_datetime(combined['Date'])
+        combined = combined.sort_values('Date')
 
-    # 2. Load Legacy 2011 Data
-    legacy_df = pd.read_excel(LEGACY_FILE) if os.path.exists(LEGACY_FILE) else pd.DataFrame()
-
-    # 3. Combine and Clean
-    full_df = pd.concat([main_df, legacy_df], ignore_index=True)
-    if not full_df.empty:
-        full_df['Date'] = pd.to_datetime(full_df['Date'])
-        # Automatically calculate BMI for any row with Weight
-        if 'Weight' in full_df.columns:
-            full_df['BMI'] = full_df['Weight'].apply(lambda x: calculate_bmi(x) if pd.notnull(x) else None)
-        full_df = full_df.sort_values('Date')
-    return full_df
+    return combined
 
 
 # --- APP UI ---
-st.title("🛡️ Trench Survival: Long-Term Chronicles")
-df = load_all_data()
+st.set_page_config(page_title="Trench Unified Tracker", layout="wide")
+st.title("🛡️ The Unified Survival Chronicles")
+st.markdown("Displaying your historical BMI and Weight data since 2011.")
 
-# 1. SIDEBAR: DATA ENTRY
+df = load_unified_data()
+
+# 1. SIDEBAR ENTRY (Saves to MAIN_FILE)
 with st.sidebar:
-    st.header("➕ Log Today's Vitals")
-    with st.form("vit_form", clear_on_submit=True):
+    st.header("➕ New Entry")
+    with st.form("entry_form", clear_on_submit=True):
         date = st.date_input("Date", datetime.date.today())
         weight = st.number_input("Weight (lbs)", min_value=0.0)
+        bmi = st.number_input("BMI (Current)", min_value=0.0, format="%.2f")
         metric = st.selectbox("Other Metric", ["None", "Vitamin D", "Iron", "B12"])
-        val = st.number_input("Metric Value", min_value=0.0)
+        val = st.number_input("Result Value", min_value=0.0)
+        note = st.text_input("Notes")
 
-        if st.form_submit_button("Record"):
-            new_row = pd.DataFrame(
-                {'Date': [pd.to_datetime(date)], 'Weight': [weight], 'Metric': [metric], 'Value': [val]})
-            df = pd.concat([df, new_row], ignore_index=True)
-            df.to_excel(MAIN_FILE, index=False)
+        if st.form_submit_button("Record in Archives"):
+            new_entry = pd.DataFrame({
+                'Date': [pd.to_datetime(date)],
+                'Weight': [weight],
+                'BMI': [bmi],
+                'Metric': [metric],
+                'Value': [val],
+                'Notes': [note]
+            })
+
+            # Save to active file
+            if os.path.exists(MAIN_FILE):
+                existing_main = pd.read_excel(MAIN_FILE)
+                updated_main = pd.concat([existing_main, new_entry], ignore_index=True)
+            else:
+                updated_main = new_entry
+
+            updated_main.to_excel(MAIN_FILE, index=False)
+            st.success("Entry added!")
             st.rerun()
 
-# 2. CHARTS (Weight & BMI Trends)
-if not df.empty and 'Weight' in df.columns:
-    st.subheader("📉 Weight & BMI Journey (Since 2011)")
+# 2. VISUALIZATION
+if not df.empty:
+    tab1, tab2 = st.tabs(["📉 Long-Term Trends", "📜 Full Chronicles"])
 
-    # Multi-line chart for Weight and BMI
-    # Note: Streamlit line_chart displays all columns in the dataframe except the index
-    chart_data = df.set_index('Date')[['Weight', 'BMI']]
-    st.line_chart(chart_data)
+    with tab1:
+        # Metrics Row
+        col1, col2 = st.columns(2)
+        latest_bmi = df.dropna(subset=['BMI']).iloc[-1]['BMI']
+        latest_weight = df.dropna(subset=['Weight']).iloc[-1]['Weight']
 
-    # "Lore" Status for Weight
-    latest_bmi = df.dropna(subset=['BMI']).iloc[-1]['BMI']
-    status = "🟡 BANDITO: Healthy Range" if 18.5 <= latest_bmi <= 24.9 else "🔴 VIALISM: Out of Range"
-    st.metric("Current BMI Status", f"{latest_bmi:.1f}", delta=status)
+        col1.metric("Current Weight", f"{latest_weight} lbs")
+        col2.metric("Current BMI", f"{latest_bmi}")
+
+        st.subheader("Weight & BMI Journey")
+        # Line chart showing your pre-existing Weight and BMI columns
+        st.line_chart(df.set_index('Date')[['Weight', 'BMI']])
+
+    with tab2:
+        st.subheader("Master Medical History")
+        st.dataframe(df.sort_values('Date', ascending=False), use_container_width=True)
+else:
+    st.info("No data found. Ensure your history file is in the same folder as this script.")
