@@ -53,11 +53,11 @@ if not df.empty:
     st.subheader("📈 Health Trends Over Time")
 
     # Filter by metric for the chart
-    available_metrics = df['Results'].unique()
+    available_metrics = df['Panel'].unique()
     selected_metric = st.selectbox("Select metric to visualize:", available_metrics)
 
     # Filter and sort data for plotting
-    plot_df = df[df['Results'] == selected_metric].copy()
+    plot_df = df[df['Panel'] == selected_metric].copy()
     plot_df['Date'] = pd.to_datetime(plot_df['Date'])
     plot_df = plot_df.sort_values('Date')
 
