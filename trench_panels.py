@@ -5,7 +5,7 @@ import os
 
 # --- FILE SETUP ---
 
-file_path = '/Users/meredithsmith/Desktop/TØPAnalysis/trench_health2.xlsx'
+file_path = '/Users/meredithsmith/Desktop/TØPAnalysis/trench_health3.xlsx'
 
 def load_data():
     """Loads data from Excel or creates a new DataFrame if the file doesn't exist."""
@@ -40,13 +40,11 @@ with st.sidebar:
     st.header("➕ Log New Evidence")
     with st.form("entry_form", clear_on_submit=True):
         date = st.date_input("Date", datetime.date.today())
-        metric = st.selectbox("Panel", ['% Free + Weak',
-                                         '25-Oh Vitamin D3',
+        metric = st.selectbox("Panel", ['25-Oh Vitamin D3',
                                          'Alanine Aminotransferase',
                                          'Albumin',
                                          'Alk Phos Total',
                                          'Alt (Sgpt)',
-                                         'Alt(Sgpt)',
                                          'Anion Gap',
                                          'Anti - Ccp Ab, Igg/Iga',
                                          'Anti - Dna Antibody, Double',
