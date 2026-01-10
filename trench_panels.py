@@ -188,7 +188,12 @@ if not df.empty:
 
     with col1:
         st.subheader("📈 Survival Trends")
-        selected_metric = st.selectbox("Select Metric to View", df['Panel'].unique())
+
+        # 1. Get unique values and sort them alphabetically
+        sorted_metrics = sorted(df['Panel'].dropna().unique())
+
+        # 2. Pass the sorted list to the selectbox
+        selected_metric = st.selectbox("Select Metric to View", sorted_metrics)
         plot_df = df[df['Panel'] == selected_metric].sort_values('Date')
 
         # Streamlit Line Chart
