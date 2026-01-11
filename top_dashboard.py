@@ -327,7 +327,7 @@ with tab_report:
             'Repetition_Score': 'mean',
             'Faith_Density': 'mean'
         })
-        .round(3)  # <--- This is the correct place to round
+
         .reindex(target_albums)
         .reset_index()
     )
@@ -392,7 +392,7 @@ with tab_export:
             plt.figure(figsize=(11, 8.5));
             plt.axis('off')
             plt.text(0.5, 0.9, "ULTIMATE DISCOGRAPHY REPORT", ha='center', fontsize=18, weight='bold')
-            plt.table(cellText=master_report.values.round(3), colLabels=master_report.columns, loc='center')
+            plt.table(cellText=master_report.values, colLabels=master_report.columns, loc='center')
             pdf.savefig();
             plt.close()
         st.success(f"Report saved as {report_path}")
