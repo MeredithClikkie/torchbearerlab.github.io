@@ -61,9 +61,9 @@ release_dates = {
     "Vessel": 2013,
     "Blurryface": 2015,
     "Trench": 2018,
-    "Breach": 2020,
     "Scaled And Icy": 2021,
-    "Clancy": 2024
+    "Clancy": 2024,
+    "Breach": 2025,
 }
 
 # 4. Filter and Create df_combined
@@ -112,28 +112,7 @@ with tab3:
     # ... previous code ...
 
 
-# --- 1. SETUP & DATA LOADING ---
-st.set_page_config(page_title="TØP Era Evolution", layout="wide")
 
-
-@st.cache_data
-def load_data():
-    file_path = '/Users/meredithsmith/Desktop/TØPAnalysis/Alltøplyrics.xlsx'
-    df = pd.read_excel(file_path)
-
-    nltk.download('stopwords')
-    nltk.download('vader_lexicon')
-    stop_words = set(stopwords.words('english'))
-
-    def clean_lyrics(text):
-        words = str(text).lower().split()
-        clean_words = [w for w in words if w.isalpha() and w not in stop_words]
-        return " ".join(clean_words)
-
-    df['Clean_Lyrics'] = df['Lyrics'].apply(clean_lyrics)
-    sia = SentimentIntensityAnalyzer()
-    df['Sentiment_Score'] = df['Lyrics'].apply(lambda x: sia.polarity_scores(str(x))['compound'])
-    return df, stop_words
 
 
 df, stop_words = load_data()
@@ -351,7 +330,16 @@ with tab_theology:
     # 2. The Interactive Map
     st.divider()
     st.subheader("Scriptural Commentary")
-
+    # Define theology_map
+    # --- 2. DEFINE THIS HERE (Global Scope) ---
+    theology_map = {
+        "Taxi Cab": {"Theme": "The Trinity", "Verse": "Matthew 28:19", "Lesson": "Divine rescue..."},
+        "Trees": {"Theme": "The Call of the Creator", "Verse": "Genesis 3:8-9", "Lesson": "The soul's journey..."},
+        "Paladin Strait": {"Theme": "Spiritual Warfare", "Verse": "Ephesians 6:13", "Lesson": "Standing against..."},
+        "Oldies Station": {"Theme": "Sanctification", "Verse": "Galatians 6:9", "Lesson": "Perseverance..."},
+        "Addict with a Pen": {"Theme": "Repentance", "Verse": "Psalm 42", "Lesson": "Spiritual dryness..."},
+        "Tally": {"Theme": "Grace vs. Law", "Verse": "Matthew 12:36", "Lesson": "Acknowledging our account..."}
+    }
     # Selection from the expanded map
     selected_theo_song = st.selectbox("Select a Song to see its Theological Root:", list(theology_map.keys()))
 
