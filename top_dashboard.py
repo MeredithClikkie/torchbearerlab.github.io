@@ -7,110 +7,125 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import streamlit as st
 import plotly.express as px
 
-file_path = '/Users/meredithsmith/Desktop/TØPAnalysis/Alltøplyrics.xlsx'
-df = pd.read_excel(file_path)
-
-# Download necessary NLTK data
-nltk.download('stopwords')
-nltk.download('vader_lexicon')
-
-# 2. Text Preprocessing
-stop_words = set(stopwords.words('english'))
-
-def clean_lyrics(text):
-    # Lowercase and remove non-alphabetic characters
-    words = str(text).lower().split()
-    clean_words = [w for w in words if w.isalpha() and w not in stop_words]
-    return " ".join(clean_words)
-
-df['Clean_Lyrics'] = df['Lyrics'].apply(clean_lyrics)
-
-# 3. Sentiment Analysis
-sia = SentimentIntensityAnalyzer()
-df['Sentiment_Score'] = df['Lyrics'].apply(lambda x: sia.polarity_scores(str(x))['compound'])
-
-# 4. Group by Album for Analysis
-album_sentiment = df.groupby('album_name')['Sentiment_Score'].mean().sort_values()
-print("Average Sentiment by Album:\n", album_sentiment)
-
-# Create a new DataFrame containing only songs from the album "Breach"
-df_breach = df[df["album_name"] == "Breach"][["album_name", "track_name", "Lyrics"]]
-df_clancy = df[df["album_name"] == "Clancy"][["album_name", "track_name", "Lyrics"]]
-df_sai = df[df["album_name"] == "Scaled And Icy"][["album_name", "track_name", "Lyrics"]]
-df_trench = df[df["album_name"] == "Trench"][["album_name", "track_name", "Lyrics"]]
-df_blurryface = df[df["album_name"] == "Blurryface"][["album_name", "track_name", "Lyrics"]]
-df_vessel = df[df["album_name"] == "Vessel"][["album_name", "track_name", "Lyrics"]]
-df_self_titled = df[df["album_name"] == "Twenty One Pilots"][["album_name", "track_name", "Lyrics"]]
-# To see the first few rows of your filtered data:
-print(df_breach.head())
+# --- 1. SETUP & DATA LOADING ---
+st.set_page_config(page_title="TØP Analytics", layout="wide")
 
 
-# 1. Update the target albums to match your sidebar exactly
-target_albums = [
-    "Vessel", "Blurryface", "Trench", "Scaled And Icy", "Clancy", "Twenty One Pilots"
-]
+@st.cache_data
+def load_data():
+    file_path = '/Users/meredithsmith/Desktop/TØPAnalysis/Alltøplyrics.xlsx'
+    df = pd.read_excel(file_path)
 
-# 2. Include 'Sentiment_Score' in your combined DataFrame
-df_combined = df[df["album_name"].isin(target_albums)][["album_name", "track_name", "Lyrics", "Sentiment_Score", "Clean_Lyrics"]]
-st.title("|-/ The Clique Dashboard")
+    nltk.download('stopwords')
+    nltk.download('vader_lexicon')
+    stop_words = set(stopwords.words('english'))
 
-# 3. Ensure these options match the 'album_name' values in your Excel file
-album_choice = st.sidebar.selectbox("Select an Era", target_albums)
+    def clean_lyrics(text):
+        words = str(text).lower().split()
+        clean_words = [w for w in words if w.isalpha() and w not in stop_words]
+        return " ".join(clean_words)
 
-# Filter based on the sidebar selection
-filtered_df = df_combined[df_combined['album_name'] == album_choice].reset_index(drop=True)
+    # Apply preprocessing
+    df['Clean_Lyrics'] = df['Lyrics'].apply(clean_lyrics)
+    sia = SentimentIntensityAnalyzer()
+    df['Sentiment_Score'] = df['Lyrics'].apply(lambda x: sia.polarity_scores(str(x))['compound'])
+    return df, stop_words
 
-# --- 5. Create Interactive Plotly Chart ---
-fig = px.scatter(
-    filtered_df,
-    x=filtered_df.index + 1,        # +1 so tracks start at 1 instead of 0
-    y='Sentiment_Score',
-    hover_name='track_name',        # Bold title in the hover box
-    hover_data={                    # Customize what info shows on hover
-        'Sentiment_Score': ':.3f',  # Format to 3 decimal places
-        'album_name': True              # Hide the internal index from hover
-    },
-    labels={
-        'x': 'Track List (Album Order)',
-        'Sentiment_Score': 'Sentiment Polarity'
-    },
-    title=f"Sentiment Analysis: {album_choice}",
-    template="plotly_dark"          # Fits the TØP aesthetic
-)
 
-# --- 6. Word Cloud Generation ---
-st.subheader(f"Most Frequent Words in {album_choice}")
+df, stop_words = load_data()
 
-# Combine all lyrics from the filtered album into one big string
-album_text = " ".join(filtered_df['Clean_Lyrics'])
+# Filter for specific albums
+target_albums = ["Twenty One Pilots", "Vessel", "Blurryface", "Trench", "Scaled And Icy", "Clancy"]
+df_combined = df[df["album_name"].isin(target_albums)]
 
-if album_text:
-    # Create the WordCloud object
-    # I've set the colors to 'Reds' to match the Blurryface/Clancy aesthetic
-    wordcloud = WordCloud(
-        width=800,
-        height=400,
-        background_color='black',
-        colormap='Reds',
-        stopwords=stop_words
-    ).generate(album_text)
+# --- 2. SIDEBAR NAVIGATION ---
+st.sidebar.title("|-/ Navigation")
+page = st.sidebar.radio("Go to:", ["Era Evolution", "Lyric Explorer"])
 
-    # Display using Matplotlib
-    fig_wc, ax = plt.subplots(figsize=(10, 5))
-    ax.imshow(wordcloud, interpolation='bilinear')
-    ax.axis('off')  # Hide the X and Y axes
-    st.pyplot(fig_wc)
+# --- PAGE 1: ERA EVOLUTION ---
+if page == "Era Evolution":
+    st.title("Discography Sentiment Evolution")
+
+    # BOX PLOT: Era vs Era
+    st.subheader("Sentiment Distribution by Album")
+    fig_box = px.box(
+        df_combined,
+        x="album_name",
+        y="Sentiment_Score",
+        color="album_name",
+        points="all",  # Shows individual song dots over the box
+        title="Are the 'Happy' sounding albums actually happy?",
+        template="plotly_dark",
+        category_orders={"album_name": target_albums}  # Keeps them in chronological order
+    )
+    st.plotly_chart(fig_box, use_container_width=True)
+
+    st.divider()
+
+    # WORD CLOUD SECTION
+    album_choice = st.selectbox("Select an Era for a Deep Dive", target_albums)
+    filtered_df = df_combined[df_combined['album_name'] == album_choice]
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        # Scatter Plot for the specific album
+        fig_scatter = px.scatter(
+            filtered_df, x=filtered_df.index, y='Sentiment_Score',
+            hover_name='track_name', template="plotly_dark",
+            title=f"{album_choice}: Song by Song Sentiment"
+        )
+        st.plotly_chart(fig_scatter)
+
+    with col2:
+        # Color Map for WordCloud
+        era_colors = {"Vessel": "Blues", "Blurryface": "Reds", "Trench": "YlOrBr",
+                      "Scaled And Icy": "PuBuGn", "Clancy": "Oranges", "Twenty One Pilots": "Greys"}
+
+        album_text = " ".join(filtered_df['Clean_Lyrics'])
+        wc = WordCloud(background_color='black', colormap=era_colors.get(album_choice, 'Reds')).generate(album_text)
+
+        fig_wc, ax = plt.subplots()
+        ax.imshow(wc)
+        ax.axis('off')
+        st.pyplot(fig_wc)
+
+# --- PAGE 2: LYRIC EXPLORER ---
 else:
-    st.write("No lyrics found for this selection.")
+    st.title("🔍 Lyric & Mood Explorer")
 
-# Optional: Add a horizontal line at 0 (neutral sentiment)
-fig.add_hline(y=0, line_dash="dot", line_color="gray", annotation_text="Neutral")
+    col1, col2 = st.columns([1, 2])
 
-st.plotly_chart(fig, use_container_width=True)
+    with col1:
+        st.subheader("Filters")
+        search_query = st.text_input("Search for a keyword (e.g., 'Fire', 'Car', 'East')")
 
-st.write("Would you like me to help you write the code to perform sentiment analysis on your lyrics specifically?")
+        score_range = st.slider(
+            "Filter by Sentiment Score",
+            min_value=-1.0, max_value=1.0, value=(-1.0, 1.0), step=0.1
+        )
+        st.caption("Lower = Sadder/Darker | Higher = More Positive")
 
+    # Apply Filters
+    search_results = df_combined[
+        (df_combined['Lyrics'].str.contains(search_query, case=False, na=False)) &
+        (df_combined['Sentiment_Score'] >= score_range[0]) &
+        (df_combined['Sentiment_Score'] <= score_range[1])
+        ]
 
+    with col2:
+        st.subheader(f"Results ({len(search_results)} songs found)")
+        if not search_results.empty:
+            # Display results in a nice table
+            st.dataframe(
+                search_results[['track_name', 'album_name', 'Sentiment_Score']],
+                use_container_width=True,
+                hide_index=True
+            )
 
-
-
+            # Show the lyrics of the first result or a selected one
+            selected_song = st.selectbox("Select a song to read lyrics:", search_results['track_name'].tolist())
+            lyrics_to_show = search_results[search_results['track_name'] == selected_song]['Lyrics'].values[0]
+            st.text_area("Lyrics:", lyrics_to_show, height=300)
+        else:
+            st.warning("No songs match those filters. Try broadening your search!")
