@@ -59,17 +59,30 @@ st.title("|-/ The Clique Dashboard")
 album_choice = st.sidebar.selectbox("Select an Era", target_albums)
 
 # Filter based on the sidebar selection
-filtered_df = df_combined[df_combined['album_name'] == album_choice].reset_index()
+filtered_df = df_combined[df_combined['album_name'] == album_choice].reset_index(drop=True)
 
-# Now 'Sentiment_Score' will be available for px.scatter
+# --- 5. Create Interactive Plotly Chart ---
 fig = px.scatter(
     filtered_df,
-    x=filtered_df.index,
+    x=filtered_df.index + 1,        # +1 so tracks start at 1 instead of 0
     y='Sentiment_Score',
-    hover_data=['track_name'],
-    labels={'x': 'Track Number'}
+    hover_name='track_name',        # Bold title in the hover box
+    hover_data={                    # Customize what info shows on hover
+        'Sentiment_Score': ':.3f',  # Format to 3 decimal places
+        'album_name': True              # Hide the internal index from hover
+    },
+    labels={
+        'x': 'Track List (Album Order)',
+        'Sentiment_Score': 'Sentiment Polarity'
+    },
+    title=f"Sentiment Analysis: {album_choice}",
+    template="plotly_dark"          # Fits the TØP aesthetic
 )
-st.plotly_chart(fig)
+
+# Optional: Add a horizontal line at 0 (neutral sentiment)
+fig.add_hline(y=0, line_dash="dot", line_color="gray", annotation_text="Neutral")
+
+st.plotly_chart(fig, use_container_width=True)
 
 st.write("Would you like me to help you write the code to perform sentiment analysis on your lyrics specifically?")
 
