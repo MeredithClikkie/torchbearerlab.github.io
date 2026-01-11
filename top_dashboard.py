@@ -29,16 +29,21 @@ def load_data():
 
     def calculate_diversity(text):
         words = str(text).lower().split()
-        return len(set(words)) / len(words) if len(words) > 0 else 0
+        return len(set(words)) / len(words) if words else 0
 
     def calculate_repetition(text):
         if not text or len(str(text)) < 10: return 0
         encoded = str(text).lower().encode('utf-8')
         return 1 - (len(zlib.compress(encoded)) / len(encoded))
 
+
+
+    # 2. Apply it to the main dataframe BEFORE you filter for 'df_combined'
+    df['Lexical_Diversity'] = df['Lyrics'].apply(calculate_diversity)
+
+
     # Apply all metrics
     df['Clean_Lyrics'] = df['Lyrics'].apply(clean_lyrics)
-    df['Lexical_Diversity'] = df['Lyrics'].apply(calculate_diversity)
     df['Repetition_Score'] = df['Lyrics'].apply(calculate_repetition)
 
     sia = SentimentIntensityAnalyzer()
@@ -50,12 +55,24 @@ def load_data():
 df, stop_words = load_data()
 
 # Chronology Mapping
+# 3. Define Chronology
 release_dates = {
-    "Twenty One Pilots": 2009, "Vessel": 2013, "Blurryface": 2015,
-    "Trench": 2018, "Breach": 2020, "Scaled And Icy": 2021, "Clancy": 2024
+    "Twenty One Pilots": 2009,
+    "Vessel": 2013,
+    "Blurryface": 2015,
+    "Trench": 2018,
+    "Breach": 2020,
+    "Scaled And Icy": 2021,
+    "Clancy": 2024
 }
+
+# 4. Filter and Create df_combined
+# This now contains the new metric columns automatically
 target_albums = [a for a in release_dates.keys() if a in df['album_name'].unique()]
-df_combined = df[df["album_name"].isin(target_albums)]
+df_combined = df[df["album_name"].isin(target_albums)].copy()
+
+# 5. Add the release year for sorting/plotting
+df_combined['release_year'] = df_combined['album_name'].map(release_dates)
 
 # --- 2. THE TABS ---
 st.title("|-/ The Advanced Clique Dashboard")
@@ -258,6 +275,96 @@ with sm2:
 with sm3:
     # Display the lyrics in a scrollable box
     st.text_area(f"Lyrics for {selected_song}", song_data['Lyrics'], height=250)
+
+# --- 5. Advanced Lexical Theology Section ---
+# 2. Advanced Lexical Theology Section
+# In this section, we use your Lexical Diversity and Word Counts to track "Theological Density."
+# A. The "Lament" Correlation
+# Theology often distinguishes between Praise (Positive Sentiment) and Lament (Negative Sentiment).
+# The Logic: In the Book of Psalms, 70% of the chapters are Laments.
+# The Code Integration:
+# Categorize songs by Lament vs. Praise
+df_combined['Theological_Category'] = df_combined.apply(
+    lambda x: 'Lament' if x['Sentiment_Score'] < -0.3 else ('Praise/Hope' if x['Sentiment_Score'] > 0.3 else 'Reflective'),
+    axis=1
+)
+
+# Categorize songs by Word vs. Spirit
+# B. The "Word" vs. "Spirit" Balance
+# We can track specific lexicons to see which era is more "Physical" (the struggle of the flesh) versus "Metaphysical" (the battle of the mind/spirit).
+# Define Lexicons
+flesh_lexicon = ['skin', 'bones', 'blood', 'body', 'flesh', 'hands', 'feet']
+spirit_lexicon = ['soul', 'mind', 'ghost', 'spirit', 'dream', 'think', 'believe']
+
+def count_themes(text, lexicon):
+    return sum(1 for word in str(text).lower().split() if word in lexicon)
+
+df_combined['Flesh_Count'] = df_combined['Lyrics'].apply(lambda x: count_themes(x, flesh_lexicon))
+df_combined['Spirit_Count'] = df_combined['Lyrics'].apply(lambda x: count_themes(x, spirit_lexicon))
+
+# 3. Integrated Streamlit Code: The "Theology Tab"
+# Add this as a new tab to your existing dashboard.
+# It combines the Lexical Diversity from your notebook with the Theology Map.
+
+# Define the tab variables here
+# --- 2. THE TABS ---
+st.title("|-/ The Ultimate Discography Report")
+
+# Define the tab variables here
+tab_theology, tab_tech, tab_export = st.tabs(["Theological Map", "Technical Metrics", "Export Report"])
+
+# Now use the EXACT same names in the 'with' blocks
+with tab_theology:
+    st.header("Scriptural Connections")
+    # ... (rest of the theology code)
+
+with tab_tech:
+    st.header("Advanced Technical Metrics")
+    # ... (rest of the technical metrics code)
+
+with tab_export:
+    st.header("Generate PDF Findings")
+    # ... (rest of the export code)
+
+with tab_theology:
+    st.header("|-/ Theological Deep Dive")
+
+    # 1. Metric: Lexical Theology (Density of Faith Words)
+    faith_words = ['god', 'faith', 'believe', 'pray', 'soul', 'spirit', 'cross', 'save', 'hello', 'trees']
+    df_combined['Faith_Density'] = df_combined['Lyrics'].apply(lambda x: count_themes(x, faith_words))
+
+    col_a, col_b = st.columns(2)
+    with col_a:
+        st.subheader("Theological Density by Era")
+        faith_avg = df_combined.groupby('album_name')['Faith_Density'].mean().reindex(target_albums).reset_index()
+        fig_faith = px.line(faith_avg, x='album_name', y='Faith_Density', markers=True,
+                            template='plotly_dark', title="Average Faith-Based Keywords")
+        st.plotly_chart(fig_faith)
+
+    with col_b:
+        st.subheader("Lexical Diversity & Spiritual Complexity")
+        # Comparing Vocabulary Richness to Faith Keywords
+        fig_theo_scatter = px.scatter(df_combined, x='Lexical_Diversity', y='Faith_Density',
+                                      color='album_name', hover_name='track_name', template='plotly_dark')
+        st.plotly_chart(fig_theo_scatter)
+
+    # 2. The Interactive Map
+    st.divider()
+    st.subheader("Scriptural Commentary")
+
+    # Selection from the expanded map
+    selected_theo_song = st.selectbox("Select a Song to see its Theological Root:", list(theology_map.keys()))
+
+    t_data = theology_map[selected_theo_song]
+    c1, c2 = st.columns([1, 2])
+    with c1:
+        st.info(f"**Theme:** {t_data['Theme']}")
+        st.success(f"**Scripture:** {t_data['Verse']}")
+    with c2:
+        st.write(f"**Theological Lesson:** {t_data['Lesson']}")
+        # Show lyrics snippet
+        snippet = df_combined[df_combined['track_name'] == selected_theo_song]['Lyrics'].values[0][:500]
+        st.caption(f"Lyrics Preview: {snippet}...")
 
 
 # --- 6. SUMMARY METRICS ---
