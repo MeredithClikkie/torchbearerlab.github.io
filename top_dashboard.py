@@ -310,6 +310,7 @@ tab_report, tab_journey, tab_theology, tab_tech, tab_export = st.tabs([
     "🏆 Ultimate Report", "🚶 Emotional Journey", "🙏 Theology Map", "📊 Technical Metrics", "📄 Export PDF"
 ])
 
+
 # --- TAB 1: ULTIMATE REPORT ---
 with tab_report:
     st.header("Executive Discography Summary")
@@ -317,23 +318,33 @@ with tab_report:
         "This report synthesizes technical complexity, emotional resonance, and theological depth across all eras.")
 
     # Master Metrics Table
-    master_report = df_combined.groupby('album_name').agg({
-        'Sentiment_Score': 'mean',
-        'Lexical_Diversity': 'mean',
-        'Repetition_Score': 'mean',
-        'Faith_Density': 'mean'
-    }).reindex(target_albums).reset_index()
+    # 1. Combine Aggregation, Rounding, and Reindexing
+    master_report = (
+        df_combined.groupby('album_name')
+        .agg({
+            'Sentiment_Score': 'mean',
+            'Lexical_Diversity': 'mean',
+            'Repetition_Score': 'mean',
+            'Faith_Density': 'mean'
+        })
+        .round(3)  # <--- This is the correct place to round
+        .reindex(target_albums)
+        .reset_index()
+    )
 
-    st.dataframe(master_report.style.background_gradient(cmap='Reds'), use_container_width=True)
+    # 2. Display with Gradient
+    st.dataframe(
+        master_report.style.background_gradient(cmap='Reds'),
+        use_container_width=True
+    )
 
     col_rep1, col_rep2 = st.columns(2)
     with col_rep1:
         st.subheader("Era Tone vs. Complexity")
-        # Scatter plot of Sentiment vs Diversity
         fig_master = px.scatter(df_combined, x='Sentiment_Score', y='Lexical_Diversity',
                                 color='album_name', size='Faith_Density',
                                 hover_name='track_name', template='plotly_dark')
-        st.plotly_chart(fig_master, use_container_width=True)
+        st.plotly_chart(fig_master, use_container_width=True, key="Master_Scatter")
 
     with col_rep2:
         st.subheader("Theological Focus Over Time")
