@@ -71,6 +71,8 @@ fig = px.scatter(
 )
 st.plotly_chart(fig)
 
+st.write("Would you like me to help you write the code to perform sentiment analysis on your lyrics specifically?")
+
 
 
 
