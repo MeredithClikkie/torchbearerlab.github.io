@@ -24,6 +24,102 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
+import pandas as pd
+import nltk
+from nltk.corpus import stopwords
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import streamlit as st
+import plotly.express as px
+import zlib  # For repetition scoring
+
+# --- 1. SETUP & DATA LOADING ---
+st.set_page_config(page_title="TØP Advanced Analytics", layout="wide")
+
+
+@st.cache_data
+def load_data():
+    file_path = '/Users/meredithsmith/Desktop/TØPAnalysis/Alltøplyrics.xlsx'
+    df = pd.read_excel(file_path)
+
+    # Preprocessing Helpers
+    nltk.download('stopwords')
+    nltk.download('vader_lexicon')
+    stop_words = set(stopwords.words('english'))
+    stop_words.update(['yeah', 'oh', 'ooh', 'woah', 'la', 'na', 'chorus', 'im', 'dont'])
+
+    def clean_lyrics(text):
+        words = str(text).lower().split()
+        return " ".join([w for w in words if w.isalpha() and w not in stop_words])
+
+    def calculate_diversity(text):
+        words = str(text).lower().split()
+        return len(set(words)) / len(words) if len(words) > 0 else 0
+
+    def calculate_repetition(text):
+        if not text or len(str(text)) < 10: return 0
+        encoded = str(text).lower().encode('utf-8')
+        return 1 - (len(zlib.compress(encoded)) / len(encoded))
+
+    # Apply all metrics
+    df['Clean_Lyrics'] = df['Lyrics'].apply(clean_lyrics)
+    df['Lexical_Diversity'] = df['Lyrics'].apply(calculate_diversity)
+    df['Repetition_Score'] = df['Lyrics'].apply(calculate_repetition)
+
+    sia = SentimentIntensityAnalyzer()
+    df['Sentiment_Score'] = df['Lyrics'].apply(lambda x: sia.polarity_scores(str(x))['compound'])
+
+    return df, stop_words
+
+
+df, stop_words = load_data()
+
+# Chronology Mapping
+release_dates = {
+    "Twenty One Pilots": 2009, "Vessel": 2013, "Blurryface": 2015,
+    "Trench": 2018, "Breach": 2020, "Scaled And Icy": 2021, "Clancy": 2024
+}
+target_albums = [a for a in release_dates.keys() if a in df['album_name'].unique()]
+df_combined = df[df["album_name"].isin(target_albums)]
+
+# --- 2. THE TABS ---
+st.title("|-/ The Advanced Clique Dashboard")
+tab1, tab2, tab3 = st.tabs(["Era Evolution", "Technical Metrics", "Lyric Explorer"])
+
+# --- TAB 1: ERA EVOLUTION (Thematic & Sentiment) ---
+with tab1:
+    st.subheader("Sentiment & Thematic Distribution")
+    fig_box = px.box(df_combined, x="album_name", y="Sentiment_Score", color="album_name",
+                     points="all", template="plotly_dark", category_orders={"album_name": target_albums})
+    st.plotly_chart(fig_box, use_container_width=True)
+
+# --- TAB 2: TECHNICAL METRICS (The New Parts) ---
+with tab2:
+    st.header("Technical Complexity Analysis")
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.subheader("Lexical Diversity (Vocabulary Richness)")
+        div_avg = df_combined.groupby('album_name')['Lexical_Diversity'].mean().reindex(target_albums).reset_index()
+        fig_div = px.bar(div_avg, x='Lexical_Diversity', y='album_name', orientation='h',
+                         color='Lexical_Diversity', color_continuous_scale='Reds', template='plotly_dark')
+        st.plotly_chart(fig_div, use_container_width=True)
+        st.info("Higher score = More unique words (Less repetitive lyrics).")
+
+    with col2:
+        st.subheader("Repetition vs. Formulaic Patterns")
+        rep_avg = df_combined.groupby('album_name')['Repetition_Score'].mean().reindex(target_albums).reset_index()
+        fig_rep = px.line(rep_avg, x='album_name', y='Repetition_Score', markers=True, template='plotly_dark')
+        st.plotly_chart(fig_rep, use_container_width=True)
+        st.info("Measures how 'compressible' the lyrics are. High scores = repetitive hooks/choruses.")
+
+# --- TAB 3: LYRIC EXPLORER (The Search & Detailed View) ---
+with tab3:
+    # (Insert your previous Spotlight & Lyric Comparison code here)
+    st.subheader("Search & Spotlight")
+    # ... previous code ...
+
 # Download necessary NLTK data
 nltk.download('stopwords')
 nltk.download('vader_lexicon')
