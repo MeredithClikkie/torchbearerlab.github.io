@@ -287,31 +287,103 @@ df_combined['Spirit_Count'] = df_combined['Lyrics'].apply(lambda x: count_themes
 
 # Define the tab variables here
 # --- 2. THE TABS ---
+# Define theology_map
+# --- 2. DEFINE THIS HERE (Global Scope) ---
+theology_map = {
+    "Taxi Cab": {"Theme": "The Trinity", "Verse": "Matthew 28:19", "Lesson": "Divine rescue..."},
+    "Trees": {"Theme": "The Call of the Creator", "Verse": "Genesis 3:8-9", "Lesson": "The soul's journey..."},
+    "Paladin Strait": {"Theme": "Spiritual Warfare", "Verse": "Ephesians 6:13", "Lesson": "Standing against..."},
+    "Oldies Station": {"Theme": "Sanctification", "Verse": "Galatians 6:9", "Lesson": "Perseverance..."},
+    "Addict with a Pen": {"Theme": "Repentance", "Verse": "Psalm 42", "Lesson": "Spiritual dryness..."},
+    "Tally": {"Theme": "Grace vs. Law", "Verse": "Matthew 12:36", "Lesson": "Acknowledging our account..."}
+}
 st.title("|-/ The Ultimate Discography Report")
 
-# Define the tab variables here
-tab_theology, tab_tech, tab_export = st.tabs(["Theological Map", "Technical Metrics", "Export Report"])
+# Define Faith Density for the Report
+faith_words = ['god', 'faith', 'believe', 'pray', 'soul', 'spirit', 'cross', 'save', 'hello', 'trees']
+df_combined['Faith_Density'] = df['Lyrics'].apply(lambda x: sum(1 for w in str(x).lower().split() if w in faith_words))
 
-# Now use the EXACT same names in the 'with' blocks
+
+# Added the "Ultimate Report" as the first tab
+tab_report, tab_journey, tab_theology, tab_tech, tab_export = st.tabs([
+    "🏆 Ultimate Report", "🚶 Emotional Journey", "🙏 Theology Map", "📊 Technical Metrics", "📄 Export PDF"
+])
+
+# --- TAB 1: ULTIMATE REPORT ---
+with tab_report:
+    st.header("Executive Discography Summary")
+    st.markdown(
+        "This report synthesizes technical complexity, emotional resonance, and theological depth across all eras.")
+
+    # Master Metrics Table
+    master_report = df_combined.groupby('album_name').agg({
+        'Sentiment_Score': 'mean',
+        'Lexical_Diversity': 'mean',
+        'Repetition_Score': 'mean',
+        'Faith_Density': 'mean'
+    }).reindex(target_albums).reset_index()
+
+    st.dataframe(master_report.style.background_gradient(cmap='Reds'), use_container_width=True)
+
+    col_rep1, col_rep2 = st.columns(2)
+    with col_rep1:
+        st.subheader("Era Tone vs. Complexity")
+        # Scatter plot of Sentiment vs Diversity
+        fig_master = px.scatter(df_combined, x='Sentiment_Score', y='Lexical_Diversity',
+                                color='album_name', size='Faith_Density',
+                                hover_name='track_name', template='plotly_dark')
+        st.plotly_chart(fig_master, use_container_width=True)
+
+    with col_rep2:
+        st.subheader("Theological Focus Over Time")
+        fig_trend = px.area(master_report, x='album_name', y='Faith_Density',
+                            template='plotly_dark', title="Faith Density Evolution")
+        st.plotly_chart(fig_trend, use_container_width=True)
+
+# --- TAB 2: EMOTIONAL JOURNEY ---
+with tab_journey:
+    st.subheader("Era Deep Dive")
+    album_choice = st.selectbox("Select Era", target_albums)
+    filtered_df = df_combined[df_combined['album_name'] == album_choice].copy()
+
+    fig_journey = px.scatter(filtered_df, x=list(range(1, len(filtered_df) + 1)), y='Sentiment_Score',
+                             hover_name='track_name', text='track_name', template="plotly_dark")
+    fig_journey.update_traces(mode='lines+markers', textposition='top center')
+    st.plotly_chart(fig_journey, use_container_width=True)
+
+# --- TAB 3: THEOLOGY MAP ---
 with tab_theology:
     st.header("Scriptural Connections")
-    # ... (rest of the theology code)
+    sel_theo_song = st.selectbox("Pick a song:", list(theology_map.keys()))
+    t_data = theology_map[sel_theo_song]
+    st.info(f"**Theme:** {t_data['Theme']} | **Verse:** {t_data['Verse']}")
+    st.write(f"**Lesson:** {t_data['Lesson']}")
 
+# --- TAB 4: TECHNICAL METRICS ---
 with tab_tech:
-    st.header("Advanced Technical Metrics")
-    # ... (rest of the technical metrics code)
+    st.header("Technical Complexity")
+    c1, c2 = st.columns(2)
+    with c1:
+        div_avg = df_combined.groupby('album_name')['Lexical_Diversity'].mean().reindex(target_albums).reset_index()
+        st.plotly_chart(px.bar(div_avg, x='Lexical_Diversity', y='album_name', orientation='h', template='plotly_dark'))
+    with c2:
+        rep_avg = df_combined.groupby('album_name')['Repetition_Score'].mean().reindex(target_albums).reset_index()
+        st.plotly_chart(px.line(rep_avg, x='album_name', y='Repetition_Score', markers=True, template='plotly_dark'))
 
+# --- TAB 5: EXPORT PDF ---
 with tab_export:
-    st.header("Generate PDF Findings")
-    # ... (rest of the export code)
-
-with tab_theology:
-    st.header("|-/ Theological Deep Dive")
-
-    # 1. Metric: Lexical Theology (Density of Faith Words)
-    faith_words = ['god', 'faith', 'believe', 'pray', 'soul', 'spirit', 'cross', 'save', 'hello', 'trees']
-    df_combined['Faith_Density'] = df_combined['Lyrics'].apply(lambda x: count_themes(x, faith_words))
-
+    st.header("Download Report")
+    if st.button("Generate Master PDF"):
+        report_path = 'Ultimate_TOP_Report.pdf'
+        with PdfPages(report_path) as pdf:
+            # Data Summary Page
+            plt.figure(figsize=(11, 8.5));
+            plt.axis('off')
+            plt.text(0.5, 0.9, "ULTIMATE DISCOGRAPHY REPORT", ha='center', fontsize=18, weight='bold')
+            plt.table(cellText=master_report.values.round(3), colLabels=master_report.columns, loc='center')
+            pdf.savefig();
+            plt.close()
+        st.success(f"Report saved as {report_path}")
     col_a, col_b = st.columns(2)
     with col_a:
         st.subheader("Theological Density by Era")
@@ -330,16 +402,7 @@ with tab_theology:
     # 2. The Interactive Map
     st.divider()
     st.subheader("Scriptural Commentary")
-    # Define theology_map
-    # --- 2. DEFINE THIS HERE (Global Scope) ---
-    theology_map = {
-        "Taxi Cab": {"Theme": "The Trinity", "Verse": "Matthew 28:19", "Lesson": "Divine rescue..."},
-        "Trees": {"Theme": "The Call of the Creator", "Verse": "Genesis 3:8-9", "Lesson": "The soul's journey..."},
-        "Paladin Strait": {"Theme": "Spiritual Warfare", "Verse": "Ephesians 6:13", "Lesson": "Standing against..."},
-        "Oldies Station": {"Theme": "Sanctification", "Verse": "Galatians 6:9", "Lesson": "Perseverance..."},
-        "Addict with a Pen": {"Theme": "Repentance", "Verse": "Psalm 42", "Lesson": "Spiritual dryness..."},
-        "Tally": {"Theme": "Grace vs. Law", "Verse": "Matthew 12:36", "Lesson": "Acknowledging our account..."}
-    }
+
     # Selection from the expanded map
     selected_theo_song = st.selectbox("Select a Song to see its Theological Root:", list(theology_map.keys()))
 
