@@ -7,6 +7,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import streamlit as st
 import plotly.express as px
 import zlib  # For repetition scoring
+from matplotlib.backends.backend_pdf import PdfPages
 
 # --- 1. SETUP & DATA LOADING ---
 st.set_page_config(page_title="TØP Advanced Analytics", layout="wide")
