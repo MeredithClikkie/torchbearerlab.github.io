@@ -51,8 +51,7 @@ target_albums = [
 ]
 
 # 2. Include 'Sentiment_Score' in your combined DataFrame
-df_combined = df[df["album_name"].isin(target_albums)][["album_name", "track_name", "Lyrics", "Sentiment_Score"]]
-
+df_combined = df[df["album_name"].isin(target_albums)][["album_name", "track_name", "Lyrics", "Sentiment_Score", "Clean_Lyrics"]]
 st.title("|-/ The Clique Dashboard")
 
 # 3. Ensure these options match the 'album_name' values in your Excel file
@@ -78,6 +77,31 @@ fig = px.scatter(
     title=f"Sentiment Analysis: {album_choice}",
     template="plotly_dark"          # Fits the TØP aesthetic
 )
+
+# --- 6. Word Cloud Generation ---
+st.subheader(f"Most Frequent Words in {album_choice}")
+
+# Combine all lyrics from the filtered album into one big string
+album_text = " ".join(filtered_df['Clean_Lyrics'])
+
+if album_text:
+    # Create the WordCloud object
+    # I've set the colors to 'Reds' to match the Blurryface/Clancy aesthetic
+    wordcloud = WordCloud(
+        width=800,
+        height=400,
+        background_color='black',
+        colormap='Reds',
+        stopwords=stop_words
+    ).generate(album_text)
+
+    # Display using Matplotlib
+    fig_wc, ax = plt.subplots(figsize=(10, 5))
+    ax.imshow(wordcloud, interpolation='bilinear')
+    ax.axis('off')  # Hide the X and Y axes
+    st.pyplot(fig_wc)
+else:
+    st.write("No lyrics found for this selection.")
 
 # Optional: Add a horizontal line at 0 (neutral sentiment)
 fig.add_hline(y=0, line_dash="dot", line_color="gray", annotation_text="Neutral")
