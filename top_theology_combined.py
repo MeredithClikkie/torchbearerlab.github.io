@@ -53,7 +53,7 @@ df, stop_words = load_and_process_data()
 # --- 2. CHRONOLOGY & FILTERING ---
 release_dates = {
     "Twenty One Pilots": 2009, "Vessel": 2013, "Blurryface": 2015,
-    "Trench": 2018, "Breach": 2020, "Scaled And Icy": 2021, "Clancy": 2024
+    "Trench": 2018, "Scaled And Icy": 2021, "Clancy": 2024, "Breach": 2025,
 }
 # Only include albums that actually exist in your Excel file
 target_albums = [a for a in release_dates.keys() if a in df['album_name'].unique()]
