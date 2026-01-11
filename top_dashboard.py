@@ -259,7 +259,8 @@ with sm3:
     # Display the lyrics in a scrollable box
     st.text_area(f"Lyrics for {selected_song}", song_data['Lyrics'], height=250)
 
-# --- 5. SUMMARY METRICS ---
+
+# --- 6. SUMMARY METRICS ---
 st.divider()
 st.subheader(f"Snapshot: {album_choice}")
 m1, m2, m3 = st.columns(3)
