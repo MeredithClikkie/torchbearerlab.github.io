@@ -42,6 +42,19 @@ df_combined = df[df["album_name"].isin(target_albums)]
 st.sidebar.title("|-/ Navigation")
 page = st.sidebar.radio("Go to:", ["Era Evolution", "Lyric Explorer"])
 
+with st.expander("What is a Sentiment Score?"):
+    st.markdown("""
+    ### How the |- / Sentiment is Calculated
+    We use the **VADER** (Valence Aware Dictionary and sEntiment Reasoner) model to analyze the lyrics. 
+    It assigns a 'Compound Score' to every song:
+
+    * **Positive Score (0.05 to 1.0):** Lyrics containing words associated with joy, hope, or excitement (e.g., *Scaled And Icy* vibes).
+    * **Neutral Score (-0.05 to 0.05):** Lyrics that are purely descriptive or balance dark and light themes equally.
+    * **Negative Score (-1.0 to -0.05):** Lyrics dealing with struggle, anxiety, or sadness (e.g., much of *Vessel* or *Blurryface*).
+
+    **Note:** Because Tyler Joseph often uses "dark" lyrics with "happy" music, this score reflects the **words only**, not the tempo of the song!
+    """)
+
 # --- PAGE 1: ERA EVOLUTION ---
 if page == "Era Evolution":
     st.title("Discography Sentiment Evolution")
