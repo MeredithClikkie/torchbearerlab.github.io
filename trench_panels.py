@@ -6,7 +6,7 @@ import os
 # --- FILE SETUP ---
 
 file_path = '/Users/meredithsmith/Desktop/TØPAnalysis/trench_health3.xlsx'
-
+df= pd.read_excel(file_path)
 def load_data():
     """Loads data from Excel or creates a new DataFrame if the file doesn't exist."""
     if os.path.exists(file_path):
@@ -16,6 +16,11 @@ def save_data(file_path):
     """Saves the DataFrame back to the Excel file."""
     df.to_excel(file_path, index=False)
 
+# List the columns you want to remove
+cols_to_remove = ['Unnamed: 5', 'Unnamed: 6', 'Unnamed: 6', 'Unnamed: 7', 'Unnamed: 8', 'Unnamed: 9', 'Unnamed: 10']
+
+# Drop them (axis=1 means columns)
+df = df.drop(columns=cols_to_remove, errors='ignore')
 
 # --- STYLE LOGIC (Lore Formatting) ---
 def style_health_log(row):
