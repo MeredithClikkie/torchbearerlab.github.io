@@ -198,7 +198,7 @@ with col_chart:
         yaxis=dict(range=[min_val - 0.2, max_val + 0.2])
     )
 
-    st.plotly_chart(fig_journey, use_container_width=True)
+    st.plotly_chart(fig_journey, use_container_width=True, key="emotional_journey")
 
 with col_cloud:
     st.subheader("Era Themes")
@@ -338,7 +338,7 @@ with tab_report:
         st.subheader("Theological Focus Over Time")
         fig_trend = px.area(master_report, x='album_name', y='Faith_Density',
                             template='plotly_dark', title="Faith Density Evolution")
-        st.plotly_chart(fig_trend, use_container_width=True)
+        st.plotly_chart(fig_trend, use_container_width=True, key="Theological_Focus")
 
 # --- TAB 2: EMOTIONAL JOURNEY ---
 with tab_journey:
@@ -349,7 +349,7 @@ with tab_journey:
     fig_journey = px.scatter(filtered_df, x=list(range(1, len(filtered_df) + 1)), y='Sentiment_Score',
                              hover_name='track_name', text='track_name', template="plotly_dark")
     fig_journey.update_traces(mode='lines+markers', textposition='top center')
-    st.plotly_chart(fig_journey, use_container_width=True)
+    st.plotly_chart(fig_journey, use_container_width=True, key="Era_Deep_Dive")
 
 # --- TAB 3: THEOLOGY MAP ---
 with tab_theology:
@@ -365,10 +365,10 @@ with tab_tech:
     c1, c2 = st.columns(2)
     with c1:
         div_avg = df_combined.groupby('album_name')['Lexical_Diversity'].mean().reindex(target_albums).reset_index()
-        st.plotly_chart(px.bar(div_avg, x='Lexical_Diversity', y='album_name', orientation='h', template='plotly_dark'))
+        st.plotly_chart(px.bar(div_avg, x='Lexical_Diversity', y='album_name', orientation='h', template='plotly_dark'), key="Lexical_Diversity")
     with c2:
         rep_avg = df_combined.groupby('album_name')['Repetition_Score'].mean().reindex(target_albums).reset_index()
-        st.plotly_chart(px.line(rep_avg, x='album_name', y='Repetition_Score', markers=True, template='plotly_dark'))
+        st.plotly_chart(px.line(rep_avg, x='album_name', y='Repetition_Score', markers=True, template='plotly_dark'), key="Repetition_Score")
 
 # --- TAB 5: EXPORT PDF ---
 with tab_export:
@@ -390,14 +390,14 @@ with tab_export:
         faith_avg = df_combined.groupby('album_name')['Faith_Density'].mean().reindex(target_albums).reset_index()
         fig_faith = px.line(faith_avg, x='album_name', y='Faith_Density', markers=True,
                             template='plotly_dark', title="Average Faith-Based Keywords")
-        st.plotly_chart(fig_faith)
+        st.plotly_chart(fig_faith, key="faith")
 
     with col_b:
         st.subheader("Lexical Diversity & Spiritual Complexity")
         # Comparing Vocabulary Richness to Faith Keywords
         fig_theo_scatter = px.scatter(df_combined, x='Lexical_Diversity', y='Faith_Density',
                                       color='album_name', hover_name='track_name', template='plotly_dark')
-        st.plotly_chart(fig_theo_scatter)
+        st.plotly_chart(fig_theo_scatter, key="theo")
 
     # 2. The Interactive Map
     st.divider()
